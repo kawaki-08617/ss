@@ -10,7 +10,6 @@
         }
     });
 
-
     // Smooth scrolling on the navbar links
     $(".navbar-nav a").on('click', function (event) {
         if (this.hash !== "") {
@@ -27,7 +26,6 @@
         }
     });
 
-
     // Typed Initiate
     if ($('.typed-text-output').length == 1) {
         var typed_strings = $('.typed-text').text();
@@ -40,14 +38,12 @@
         });
     }
 
-
     // Modal Video
     $(document).ready(function () {
         var $videoSrc;
         $('.btn-play').click(function () {
             $videoSrc = $(this).data("src");
         });
-        console.log($videoSrc);
 
         $('#videoModal').on('shown.bs.modal', function (e) {
             $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
@@ -58,7 +54,6 @@
         })
     });
 
-
     // Scroll to Bottom
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -68,14 +63,12 @@
         }
     });
 
-
     // Skills
     $('.skill').waypoint(function () {
         $('.progress .progress-bar').each(function () {
             $(this).css("width", $(this).attr("aria-valuenow") + '%');
         });
     }, {offset: '80%'});
-
 
     // Portfolio isotope and filter
     var portfolioIsotope = $('.portfolio-container').isotope({
@@ -88,8 +81,7 @@
 
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
@@ -103,7 +95,6 @@
         return false;
     });
 
-
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
         autoplay: true,
@@ -112,6 +103,45 @@
         loop: true,
         items: 1
     });
-    
-})(jQuery);
 
+    // Contact Form Submission
+    $('#contactForm').submit(function (event) {
+        event.preventDefault(); // Empêche le comportement par défaut (rechargement de la page)
+
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var subject = $('#subject').val();
+        var message = $('#message').val();
+
+        // Vérification basique (vous pouvez ajouter plus de validations ici)
+        if (name && email && subject && message) {
+            // Affichage d'un message de succès
+            $('#success').text('Message envoyé avec succès!');
+            $('#contactForm')[0].reset(); // Réinitialise le formulaire
+
+            // Ici vous pouvez ajouter une requête AJAX pour envoyer le formulaire si nécessaire
+            // Exemple d'utilisation de AJAX :
+            /*
+            $.ajax({
+                url: 'votre-script-de-traitement.php', // Remplacez par votre script serveur
+                method: 'POST',
+                data: {
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message
+                },
+                success: function(response) {
+                    $('#success').text('Message envoyé avec succès!');
+                },
+                error: function(error) {
+                    $('#success').text('Erreur lors de l\'envoi du message.');
+                }
+            });
+            */
+        } else {
+            $('#success').text('Veuillez remplir tous les champs!');
+        }
+    });
+
+})(jQuery);
